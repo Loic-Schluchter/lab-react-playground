@@ -1,0 +1,66 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Rajdhani:wght@400;600&display=swap");
+@theme {
+    --font-sans: Rajdhani, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    --font-techno: Orbitron, Rajdhani, ui-sans-serif, system-ui, -apple-system, Segoe UI;}
+    @import "tailwindcss";
+/* Angle animé pour le dégradé */
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes rotate {
+  to { --angle: 1turn; }
+}
+
+/* Bordure RGB animée réutilisable */
+.rgb-border {
+  position: relative;
+  border-radius: 1rem; /* = rounded-2xl */
+}
+.rgb-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;                 /* épaisseur de bordure */
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--angle),
+    #ff00e6, #00f7ff, #39ff14, #a855f7, #ff00e6
+  );
+  /* On “perce” le centre pour ne garder que la bordure */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  animation: rotate 6s linear infinite;
+  pointer-events: none;         /* clics passent à travers */
+}
+
+.card{
+  @apply  w-full text-center p-6 self-start font-techno bg-[#111827] text-gray-200 backdrop-blur transition h-full flex flex-col justify-center gap-4;
+}
+.title{
+  @apply text-4xl mx-auto px-4 py-2 font-techno text-cyan-400 tracking-widest drop-shadow-[0_0_6px_#00f7ff] underline;
+}
+.button{
+  @apply bg-cyan-500/20 hover:bg-cyan-500/40 border border-cyan-400/40 text-cyan-300 shadow-[0_0_10px_#00f7ff] p-2 rounded-full w-1/6 min-w-40  ;
+}
+.lorem{
+  @apply text-justify px-4 text-red-400 opacity-0 transition-all duration-700 ease-out transform translate-x-[-100%];
+  
+}
+.lorem.visible{
+  @apply text-justify px-4 text-green-400 translate-x-0 opacity-100;
+  }
+  .cardBoard {
+    @apply text-justify px-4 text-red-400 opacity-0 transition-all duration-700 ease-out transform translate-x-[-100%];
+  }
+  .cardBoard.visible{
+    @apply text-justify px-4 text-green-400 translate-x-0 opacity-100;
+    }
+
+
